@@ -20,11 +20,3 @@ void poopevent(char args[1024]);
 void runsetup(void);
 void runloop(void);
 
-static cmd_handler_t handle_cmds[] = {
-    { "help", helpevent},
-    { "create", createevent},
-    { "exit", quitevent},
-    { "quit", quitevent},
-    { "", NULL}
-};
-

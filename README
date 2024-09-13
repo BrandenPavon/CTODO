@@ -4,7 +4,12 @@ Clone the repo:
 git clone https://github.com/BrandenPavon/CTODO.git
 
 Description:
-    TODO program in C. Puts user in command prompt and displays current
+    TODO program in C. Puts user in command prompt and displays current CTODOs
+
+Build:
+    make
+Build clean:
+    make clean
 
 TODO
     - Pull CTODOs from .local/share/ctodo
