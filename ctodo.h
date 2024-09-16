@@ -11,11 +11,10 @@ typedef struct {
     short int eventstatus;
 } ctodo_t;
 
-
-
 void helpevent(char args[1024]);
 void createevent(char args[1024]);
 void quitevent(char args[1024]);
+void exitevent(char args[1024]);
 void poopevent(char args[1024]);
 void runsetup(void);
 void runloop(void);

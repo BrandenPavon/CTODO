@@ -5,18 +5,17 @@
 #include "ctodo.h"
 #include "essentials.h"
 
-#define MAX 1024
+
+#define STARTING_CACHE 16
 ctodo_t ** ctodo_arr;
+int ctodo_cachenum = STARTING_CACHE;
 /* ACTUAL STATIC */
 static int running;
 static cmd_handler_t handle_cmds[] = {
-    { "help", helpevent},
-    { "create", createevent},
-    { "exit", quitevent},
-    { "quit", quitevent},
-    { "", NULL}
+    {"quit", quitevent},
+    {"exit", exitevent},
+    {"create", createevent}
 };
-
 
 void helpevent(char args[1024]) { 
     printf("What do you need help with? \n");
@@ -38,7 +37,7 @@ void createevent(char args[1024]) {
                 eventdesc[strcspn(eventdesc, "\n")] = 0;
                 FILE *fptr;
                 fptr = fopen("cal.csv","a");
-                fprintf(fptr, "%ld; %s; %s", string_to_seconds(eventtime), eventname, eventdesc);
+                fprintf(fptr, "%ld; %s; %s\n", string_to_seconds(eventtime), eventname, eventdesc);
                 fclose(fptr);
             }
             
@@ -47,7 +46,6 @@ void createevent(char args[1024]) {
     return;
 }
 void quitevent(char args[1024]) { 
-    //printf("%ld", sizeof(ctodo_t)*100);
     running = 0;
     return;
 }
@@ -60,9 +58,19 @@ void runsetup(void) {
     time_t unixtime = time(NULL);
     printf("Unix time is %ld \n", unixtime);
     FILE* file = fopen("cal.csv", "r");
+    if (file == NULL) {
+        exit(1);
+    }
     char line[4096];
-    ctodo_arr = malloc(sizeof(ctodo_t)*MAX);
-    printf("%ld \n", sizeof(ctodo_t)*MAX);
+    char c;
+    for (c = getc(file); c != EOF; c = getc(file)) {
+        if (c == '\n') {
+            ctodo_cachenum += 1;
+        }
+    
+    }
+    ctodo_arr = malloc(sizeof(ctodo_t)*ctodo_cachenum);
+    printf("%d \n", ctodo_cachenum);
     if (file != NULL) {
         int i = 0;
         while (fgets(line, sizeof(line), file)) {
@@ -108,7 +116,7 @@ void runloop(void) {
 }
 
 void runcleanup(void) {
-    for (int i = 0; i < 2; ++i) {free(ctodo_arr[i]);}
+    for (int i = 0; i < 0; ++i) {free(ctodo_arr[i]);}
 
 }
 
@@ -116,6 +124,5 @@ int main(int argc, char *argv[]) {
     runsetup();
     runloop();
     runcleanup();
-    printf("Done \n");
     return EXIT_SUCCESS;
 }

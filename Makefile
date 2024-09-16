@@ -22,4 +22,4 @@ options:
 ctodo: ${OBJ}
 	${CC} -o $@ ${OBJ} ${CFLAGS} ${LDFLAGS}
 clean:
-	rm ctodo *.o cal.csv
+	rm ctodo *.o 
