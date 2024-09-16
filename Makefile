@@ -2,7 +2,7 @@
 
 include config.mk
 
-SRC = ctodo.c essentials.c
+SRC = ctodo.c essentials.c events.c
 OBJ = ${SRC:.c=.o}
 
 
