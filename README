@@ -14,3 +14,5 @@ Build clean:
 TODO
     - Pull CTODOs from .local/share/ctodo
     - Display CTODOs on startup
+    - Edit CTODOs
+    - Delete CTODOs

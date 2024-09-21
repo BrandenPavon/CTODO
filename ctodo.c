@@ -6,22 +6,24 @@
 #include "events.h"
 #include "essentials.h"
 
+ctodo_t ** ctodo_arr;
+
 int running = 0;
 #define STARTING_CACHE 16
-ctodo_t ** ctodo_arr;
 int ctodo_cachenum = STARTING_CACHE;
 /* ACTUAL STATIC */
 static cmd_handler_t handle_cmds[] = {
     {"quit", quitevent},
     {"exit", exitevent},
     {"create", createevent},
+    {"view", viewevent},
     {"help", helpevent}
 };
 
 void runsetup(void) {
     time_t unixtime = time(NULL);
     printf("Unix time is %ld \n", unixtime);
-    FILE* file = fopen("cal.csv", "r");
+    FILE* file = fopen("/home/wmkr/.local/share/cal.csv", "r");
     if (file == NULL) {
         exit(1);
     }

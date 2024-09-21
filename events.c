@@ -4,7 +4,10 @@
 #include <string.h>
 #include "ctodo.h"
 #include "essentials.h"
-
+void viewevent(char args[1024]) { 
+    printf("%d", 1);
+    return;
+}
 void helpevent(char args[1024]) { 
     printf("What do you need help with? \n");
     return;
@@ -24,7 +27,7 @@ void createevent(char args[1024]) {
                 eventname[strcspn(eventname, "\n")] = 0;
                 eventdesc[strcspn(eventdesc, "\n")] = 0;
                 FILE *fptr;
-                fptr = fopen("cal.csv","a");
+                fptr = fopen("~/.local/share/cal.csv","a");
                 fprintf(fptr, "%ld; %s; %s\n", string_to_seconds(eventtime), eventname, eventdesc);
                 fclose(fptr);
             }

@@ -11,7 +11,9 @@ typedef struct {
 
 void helpevent(char args[1024]);
 void createevent(char args[1024]);
+void viewevent(char args[1024]);
 void quitevent(char args[1024]);
 void exitevent(char args[1024]);
 
 extern int running;
+extern ctodo_t ** ctodo_arr;
