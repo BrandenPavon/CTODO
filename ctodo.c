@@ -6,6 +6,8 @@
 #include "events.h"
 #include "essentials.h"
 
+#include "config.h"
+
 ctodo_t ** ctodo_arr;
 
 int running = 0;
@@ -23,7 +25,7 @@ static cmd_handler_t handle_cmds[] = {
 void runsetup(void) {
     time_t unixtime = time(NULL);
     printf("Unix time is %ld \n", unixtime);
-    FILE* file = fopen("/home/wmkr/.local/share/cal.csv", "r");
+    FILE* file = fopen(calfp, "r");
     if (file == NULL) {
         exit(1);
     }
@@ -48,7 +50,7 @@ void runsetup(void) {
             char * eventdesc = getfield(tmp3, 3); 
             ctodo_arr[i] = malloc(sizeof(ctodo_t));
             if (populateTodo(ctodo_arr[i], eventname, eventdesc, (long int) eventtime, 0) == -1) {
-                fprintf(stderr, "[ERROR] initMyObject() failed\n");
+                fprintf(stderr, "[ERROR] CAN NOT POPULATE CTODO\n");
                 break;
             }
             printf("%s, %s, %s \n", eventname, eventtime, eventdesc);

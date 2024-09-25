@@ -1,1 +1,1 @@
-static const char calfp[] = "/home/wmkr/.local/share/cal.csv"
+static const char calfp[] = "/home/wmkr/.local/share/cal.csv";

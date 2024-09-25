@@ -5,7 +5,11 @@
 #include "ctodo.h"
 #include "essentials.h"
 void viewevent(char args[1024]) { 
-    printf("%d", 1);
+    char eventname[256];
+    printf("[event name] ");
+    if(fgets(eventname, sizeof(eventname), stdin) != NULL && eventname[0] != '\n') {
+        
+    }
     return;
 }
 void helpevent(char args[1024]) { 
