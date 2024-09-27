@@ -16,4 +16,4 @@ void quitevent(char args[1024]);
 void exitevent(char args[1024]);
 
 extern int running;
-extern ctodo_t ** ctodo_arr;
+extern ctodo_t * ctodo_arr;

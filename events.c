@@ -3,12 +3,15 @@
 #include <time.h>
 #include <string.h>
 #include "ctodo.h"
+#include "config.h"
 #include "essentials.h"
 void viewevent(char args[1024]) { 
     char eventname[256];
     printf("[event name] ");
     if(fgets(eventname, sizeof(eventname), stdin) != NULL && eventname[0] != '\n') {
-        
+        for(int i = 0; i<1 ;i++) {
+
+        }
     }
     return;
 }
@@ -31,7 +34,7 @@ void createevent(char args[1024]) {
                 eventname[strcspn(eventname, "\n")] = 0;
                 eventdesc[strcspn(eventdesc, "\n")] = 0;
                 FILE *fptr;
-                fptr = fopen("~/.local/share/cal.csv","a");
+                fptr = fopen(calfp,"a");
                 fprintf(fptr, "%ld; %s; %s\n", string_to_seconds(eventtime), eventname, eventdesc);
                 fclose(fptr);
             }

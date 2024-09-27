@@ -11,5 +11,5 @@ void runloop(void);
 void runcleanup(void);
 
 extern int running;
-extern ctodo_t ** ctodo_arr;
+extern ctodo_t * ctodo_arr;
 

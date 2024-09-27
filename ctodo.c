@@ -8,7 +8,7 @@
 
 #include "config.h"
 
-ctodo_t ** ctodo_arr;
+ctodo_t * ctodo_arr;
 
 int running = 0;
 #define STARTING_CACHE 16
@@ -37,33 +37,28 @@ void runsetup(void) {
         }
     
     }
-    ctodo_arr = malloc(sizeof(ctodo_t)*ctodo_cachenum);
+    fclose(file);
+    file = fopen(calfp, "r");
+    ctodo_arr =  (ctodo_t *) malloc(sizeof(ctodo_t)*ctodo_cachenum);
     printf("%d \n", ctodo_cachenum);
-    if (file != NULL) {
-        int i = 0;
-        while (fgets(line, sizeof(line), file)) {
-            char * tmp1 = strdup(line);
-            char * eventname = getfield(tmp1, 2);
-            char * tmp2 = strdup(line);
-            char * eventtime = getfield(tmp2, 1);
-            char * tmp3 = strdup(line);
-            char * eventdesc = getfield(tmp3, 3); 
-            ctodo_arr[i] = malloc(sizeof(ctodo_t));
-            if (populateTodo(ctodo_arr[i], eventname, eventdesc, (long int) eventtime, 0) == -1) {
-                fprintf(stderr, "[ERROR] CAN NOT POPULATE CTODO\n");
-                break;
-            }
-            printf("%s, %s, %s \n", eventname, eventtime, eventdesc);
-            free(tmp1);
-            free(tmp2);
-            free(tmp3);
-            i++;
+    int i = 0;
+    while (fgets(line, sizeof(line), file)) {
+        char * tmp1 = strdup(line);
+        char * eventname = getfield(tmp1, 2);
+        char * tmp2 = strdup(line);
+        char * eventtime = getfield(tmp2, 1);
+        char * tmp3 = strdup(line);
+        char * eventdesc = getfield(tmp3, 3); 
+        if (populateTodo(ctodo_arr[i], eventname, eventdesc, (long int) eventtime, 0) == -1) {
+            fprintf(stderr, "[ERROR] CAN NOT POPULATE CTODO\n");
+            break;
         }
-        fclose(file);
+        free(tmp1);
+        free(tmp2);
+        free(tmp3);
+        i++;
     }
-    else {
-        fprintf(stderr, "Unable to open file!\n");
-    }
+    fclose(file);
     running = 1;
 }
 
@@ -84,7 +79,7 @@ void runloop(void) {
 }
 
 void runcleanup(void) {
-    for (int i = 0; i < 0; ++i) {free(ctodo_arr[i]);}
+    for (int i = 0; i < 0; ++i) {free(ctodo_arr);}
 
 }
 
