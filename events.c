@@ -36,6 +36,8 @@ void createevent(char args[1024]) {
                 FILE *fptr;
                 fptr = fopen(calfp,"a");
                 fprintf(fptr, "%ld; %s; %s\n", string_to_seconds(eventtime), eventname, eventdesc);
+                ctodo_cachenum++;
+                fillCTODO(fptr, ctodo_cachenum);
                 fclose(fptr);
             }
             

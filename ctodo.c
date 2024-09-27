@@ -29,7 +29,6 @@ void runsetup(void) {
     if (file == NULL) {
         exit(1);
     }
-    char line[4096];
     char c;
     for (c = getc(file); c != EOF; c = getc(file)) {
         if (c == '\n') {
@@ -39,26 +38,7 @@ void runsetup(void) {
     }
     fclose(file);
     file = fopen(calfp, "r");
-    ctodo_arr =  (ctodo_t *) malloc(sizeof(ctodo_t)*ctodo_cachenum);
-    printf("%d \n", ctodo_cachenum);
-    int i = 0;
-    while (fgets(line, sizeof(line), file)) {
-        char * tmp1 = strdup(line);
-        char * eventname = getfield(tmp1, 2);
-        char * tmp2 = strdup(line);
-        char * eventtime = getfield(tmp2, 1);
-        char * tmp3 = strdup(line);
-        char * eventdesc = getfield(tmp3, 3); 
-        if (populateTodo(ctodo_arr[i], eventname, eventdesc, (long int) eventtime, 0) == -1) {
-            fprintf(stderr, "[ERROR] CAN NOT POPULATE CTODO\n");
-            break;
-        }
-        free(tmp1);
-        free(tmp2);
-        free(tmp3);
-        i++;
-    }
-    fclose(file);
+    fillCTODO(file, ctodo_cachenum); 
     running = 1;
 }
 
