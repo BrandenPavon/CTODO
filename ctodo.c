@@ -39,6 +39,7 @@ void runsetup(void) {
     fclose(file);
     file = fopen(calfp, "r");
     fillCTODO(file, ctodo_cachenum); 
+    fclose(file);
     running = 1;
 }
 
@@ -59,7 +60,8 @@ void runloop(void) {
 }
 
 void runcleanup(void) {
-    for (int i = 0; i < 0; ++i) {free(ctodo_arr);}
+    free(ctodo_arr);
+    printf("CLEANUP DONE \n");
 
 }
 
