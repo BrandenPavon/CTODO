@@ -1,5 +1,3 @@
-
-
 include config.mk
 
 SRC = ctodo.c essentials.c events.c
